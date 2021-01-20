@@ -1,6 +1,7 @@
 package edu.itakademy.demo.service.impl;
 
 import edu.itakademy.demo.entity.Book;
+import edu.itakademy.demo.entity.dto.BookDTO;
 import edu.itakademy.demo.repository.BookRepositoryInterface;
 import edu.itakademy.demo.service.BookServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,33 @@ public class BookService implements BookServiceInterface {
     @Override
     public List<Book> getAll() {
         return this.bookRepositoryInterface.getAll();
+    }
+
+    @Override
+    public void deleteBook(Integer id) {
+        this.bookRepositoryInterface.deleteBook(id);
+    }
+
+    @Override
+    public Book createBook(Book book) {
+        this.bookRepositoryInterface.saveBook(book);
+
+        return book;
+    }
+
+    @Override
+    public Book editBook(Integer bookId, BookDTO bookDTO) {
+        Book book = this.mapToEntity(bookDTO, this.getBook(bookId));
+        this.bookRepositoryInterface.editBook(book);
+
+        return book;
+    }
+
+    private Book mapToEntity(BookDTO bookDTO, Book book) {
+        if (bookDTO.getName() != null) {
+            book.setName(bookDTO.getName());
+        }
+
+        return book;
     }
 }
