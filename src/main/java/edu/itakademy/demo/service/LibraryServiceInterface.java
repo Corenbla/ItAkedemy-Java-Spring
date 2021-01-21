@@ -1,19 +1,22 @@
 package edu.itakademy.demo.service;
 
 import edu.itakademy.demo.entity.Library;
-import edu.itakademy.demo.repository.LibraryRepositoryInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.itakademy.demo.entity.dto.LibraryDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class LibraryServiceInterface {
+public interface LibraryServiceInterface {
 
-    @Autowired
-    LibraryRepositoryInterface libraryRepositoryInterface;
+    List<Library> getAll();
 
-    public List<Library> getAll() {
-        return this.libraryRepositoryInterface.findAll();
-    }
+    Library getLibrary(Integer id);
+
+    List<Library> getByName(String name);
+
+    void deleteLibrary(Integer id);
+
+    Library createLibrary(Library library);
+
+    Library editLibrary(Integer id, LibraryDTO libraryDTO);
 }
