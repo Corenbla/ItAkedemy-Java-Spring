@@ -4,6 +4,7 @@ import edu.itakademy.demo.entity.Book;
 import edu.itakademy.demo.entity.dto.BookDTO;
 import edu.itakademy.demo.repository.BookRepositoryInterface;
 import edu.itakademy.demo.service.BookServiceInterface;
+import edu.itakademy.demo.service.MailServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ import java.util.List;
 
 @Service
 public class BookService implements BookServiceInterface {
+
+    @Autowired
+    private MailServiceInterface mailServiceInterface;
 
     @Autowired
     private BookRepositoryInterface bookRepositoryInterface;
@@ -45,6 +49,7 @@ public class BookService implements BookServiceInterface {
     @Override
     public Book createBook(Book book) {
         this.bookRepositoryInterface.save(book);
+        this.mailServiceInterface.sendSimpleMessage(book);
 
         return book;
     }
