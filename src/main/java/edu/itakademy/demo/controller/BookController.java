@@ -27,6 +27,11 @@ public class BookController {
         return this.bookServiceInterface.getBook(id);
     }
 
+    @GetMapping("/byName/{name}")
+    public List<Book> getByName(@PathVariable String name) {
+        return this.bookServiceInterface.getByName(name);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {

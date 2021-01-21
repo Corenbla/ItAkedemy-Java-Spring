@@ -1,18 +1,13 @@
 package edu.itakademy.demo.repository;
 
 import edu.itakademy.demo.entity.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface BookRepositoryInterface {
+public interface BookRepositoryInterface extends JpaRepository<Book, Integer> {
 
-    public Book getBookById(Integer id);
-
-    public List<Book> getAll();
-
-    void deleteBook(Integer id);
-
-    void saveBook(Book name);
-
-    void editBook(Book book);
+    @Query("select u from Book u where u.name like %?1%")
+    List<Book> findAllByName(String name);
 }

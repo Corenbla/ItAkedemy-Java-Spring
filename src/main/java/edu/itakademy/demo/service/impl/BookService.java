@@ -5,7 +5,9 @@ import edu.itakademy.demo.entity.dto.BookDTO;
 import edu.itakademy.demo.repository.BookRepositoryInterface;
 import edu.itakademy.demo.service.BookServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -17,22 +19,32 @@ public class BookService implements BookServiceInterface {
 
     @Override
     public Book getBook(Integer id) {
-        return this.bookRepositoryInterface.getBookById(id);
+        return this.bookRepositoryInterface.findById(id).orElseThrow(
+            ()-> new ResponseStatusException(HttpStatus.NOT_FOUND)
+        );
+    }
+
+    @Override
+    public List<Book> getByName(String name) {
+        System.out.println("Foo!");
+        System.out.println(name);
+        System.out.println(this.bookRepositoryInterface.findAllByName(name));
+        return this.bookRepositoryInterface.findAllByName(name);
     }
 
     @Override
     public List<Book> getAll() {
-        return this.bookRepositoryInterface.getAll();
+        return this.bookRepositoryInterface.findAll();
     }
 
     @Override
     public void deleteBook(Integer id) {
-        this.bookRepositoryInterface.deleteBook(id);
+        this.bookRepositoryInterface.deleteById(id);
     }
 
     @Override
     public Book createBook(Book book) {
-        this.bookRepositoryInterface.saveBook(book);
+        this.bookRepositoryInterface.save(book);
 
         return book;
     }
@@ -40,7 +52,7 @@ public class BookService implements BookServiceInterface {
     @Override
     public Book editBook(Integer bookId, BookDTO bookDTO) {
         Book book = this.mapToEntity(bookDTO, this.getBook(bookId));
-        this.bookRepositoryInterface.editBook(book);
+        this.bookRepositoryInterface.save(book);
 
         return book;
     }
