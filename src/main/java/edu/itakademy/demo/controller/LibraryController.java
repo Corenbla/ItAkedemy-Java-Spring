@@ -18,17 +18,17 @@ public class LibraryController {
     private LibraryServiceInterface libraryServiceInterface;
 
     @GetMapping
-    public List<LibraryDTO> list() {
+    public List<Library> list() {
         return this.libraryServiceInterface.getAll();
     }
 
     @GetMapping("/{id}")
-    public LibraryDTO get(@PathVariable Integer id) {
-        return this.libraryServiceInterface.getLibraryDTO(id);
+    public Library get(@PathVariable Integer id) {
+        return this.libraryServiceInterface.getLibrary(id);
     }
 
     @GetMapping("/byName/{name}")
-    public List<LibraryDTO> getByName(@PathVariable String name) {
+    public List<Library> getByName(@PathVariable String name) {
         return this.libraryServiceInterface.getByName(name);
     }
 
@@ -40,13 +40,13 @@ public class LibraryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LibraryDTO create(@RequestBody Library library) {
+    public Library create(@RequestBody Library library) {
 
         return this.libraryServiceInterface.createLibrary(library);
     }
 
     @PutMapping("/{id}")
-    public LibraryDTO edit(@PathVariable Integer id, @RequestBody LibraryDTO libraryDTO) {
+    public Library edit(@PathVariable Integer id, @RequestBody LibraryDTO libraryDTO) {
         return this.libraryServiceInterface.editLibrary(id, libraryDTO);
     }
 }

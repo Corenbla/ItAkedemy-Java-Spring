@@ -22,10 +22,8 @@ public class LibraryService implements LibraryServiceInterface {
     MapperInterface mapperInterface;
 
     @Override
-    public List<LibraryDTO> getAll() {
-        List<Library> libraries = this.libraryRepositoryInterface.findAll();
-
-        return this.mapperInterface.librariesToLibrariesDTO(libraries);
+    public List<Library> getAll() {
+        return this.libraryRepositoryInterface.findAll();
     }
 
     @Override
@@ -43,10 +41,9 @@ public class LibraryService implements LibraryServiceInterface {
     }
 
     @Override
-    public List<LibraryDTO> getByName(String name) {
-        List<Library> libraries = this.libraryRepositoryInterface.getByName(name);
+    public List<Library> getByName(String name) {
 
-        return this.mapperInterface.librariesToLibrariesDTO(libraries);
+        return this.libraryRepositoryInterface.getByName(name);
     }
 
     @Override
@@ -59,15 +56,15 @@ public class LibraryService implements LibraryServiceInterface {
     }
 
     @Override
-    public LibraryDTO createLibrary(Library library) {
-        return this.mapperInterface.libraryToLibraryDTO(this.libraryRepositoryInterface.save(library));
+    public Library createLibrary(Library library) {
+        return this.libraryRepositoryInterface.save(library);
     }
 
     @Override
-    public LibraryDTO editLibrary(Integer id, LibraryDTO libraryDTO) {
+    public Library editLibrary(Integer id, LibraryDTO libraryDTO) {
         Library library = this.mapperInterface.libraryDTOToLibrary(libraryDTO);
         this.libraryRepositoryInterface.save(library);
 
-        return this.mapperInterface.libraryToLibraryDTO(library);
+        return library;
     }
 }

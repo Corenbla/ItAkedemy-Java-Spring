@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface LibraryServiceInterface {
 
-    List<LibraryDTO> getAll();
+    List<Library> getAll();
 
     Library getLibrary(Integer id);
 
     LibraryDTO getLibraryDTO(Integer id);
 
-    List<LibraryDTO> getByName(String name);
+    List<Library> getByName(String name);
 
     void deleteLibrary(Integer id);
 
-    LibraryDTO createLibrary(Library library);
+    Library createLibrary(Library library);
 
-    LibraryDTO editLibrary(Integer id, LibraryDTO libraryDTO);
+    Library editLibrary(Integer id, LibraryDTO libraryDTO);
 }

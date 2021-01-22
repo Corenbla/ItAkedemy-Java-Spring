@@ -78,7 +78,6 @@ public class Mapper implements MapperInterface {
         LibraryDTO libraryDTO = new LibraryDTO();
         libraryDTO.setId((library.getId() != null) ? library.getId() : -1);
         libraryDTO.setName(library.getName());
-        libraryDTO.setBooks(this.booksToBooksDTO(library.getBooks()));
 
         return libraryDTO;
     }
@@ -89,10 +88,6 @@ public class Mapper implements MapperInterface {
 
         if (libraryDTO.getName() != null) {
             library.setName(libraryDTO.getName());
-        }
-
-        if (libraryDTO.getBooks() != null) {
-            library.setBooks(library.getBooks());
         }
 
         return library;
