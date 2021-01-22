@@ -18,17 +18,17 @@ public class BookController {
     private BookServiceInterface bookServiceInterface;
 
     @GetMapping
-    public List<Book> list() {
+    public List<BookDTO> list() {
         return this.bookServiceInterface.getAll();
     }
 
     @GetMapping("/{id}")
-    public Book get(@PathVariable Integer id) {
-        return this.bookServiceInterface.getBook(id);
+    public BookDTO get(@PathVariable Integer id) {
+        return this.bookServiceInterface.getBookDTO(id);
     }
 
     @GetMapping("/byName/{name}")
-    public List<Book> getByName(@PathVariable String name) {
+    public List<BookDTO> getByName(@PathVariable String name) {
         return this.bookServiceInterface.getByName(name);
     }
 
@@ -40,13 +40,13 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book create(@RequestBody Book book) {
+    public BookDTO create(@RequestBody Book book) {
 
         return this.bookServiceInterface.createBook(book);
     }
 
     @PutMapping("/{id}")
-    public Book edit(@PathVariable Integer id, @RequestBody BookDTO bookDTO) {
+    public BookDTO edit(@PathVariable Integer id, @RequestBody BookDTO bookDTO) {
         return this.bookServiceInterface.editBook(id, bookDTO);
     }
 }

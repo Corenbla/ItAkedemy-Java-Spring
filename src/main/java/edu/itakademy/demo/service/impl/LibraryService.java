@@ -4,6 +4,7 @@ import edu.itakademy.demo.entity.Library;
 import edu.itakademy.demo.entity.dto.LibraryDTO;
 import edu.itakademy.demo.repository.LibraryRepositoryInterface;
 import edu.itakademy.demo.service.LibraryServiceInterface;
+import edu.itakademy.demo.service.MapperInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,14 @@ public class LibraryService implements LibraryServiceInterface {
     @Autowired
     LibraryRepositoryInterface libraryRepositoryInterface;
 
+    @Autowired
+    MapperInterface mapperInterface;
+
     @Override
-    public List<Library> getAll() {
-        return this.libraryRepositoryInterface.findAll();
+    public List<LibraryDTO> getAll() {
+        List<Library> libraries = this.libraryRepositoryInterface.findAll();
+
+        return this.mapperInterface.librariesToLibrariesDTO(libraries);
     }
 
     @Override
@@ -30,8 +36,17 @@ public class LibraryService implements LibraryServiceInterface {
     }
 
     @Override
-    public List<Library> getByName(String name) {
-        return this.libraryRepositoryInterface.getByName(name);
+    public LibraryDTO getLibraryDTO(Integer id) {
+        Library library = this.getLibrary(id);
+
+        return this.mapperInterface.libraryToLibraryDTO(library);
+    }
+
+    @Override
+    public List<LibraryDTO> getByName(String name) {
+        List<Library> libraries = this.libraryRepositoryInterface.getByName(name);
+
+        return this.mapperInterface.librariesToLibrariesDTO(libraries);
     }
 
     @Override
@@ -44,23 +59,15 @@ public class LibraryService implements LibraryServiceInterface {
     }
 
     @Override
-    public Library createLibrary(Library library) {
-        return this.libraryRepositoryInterface.save(library);
+    public LibraryDTO createLibrary(Library library) {
+        return this.mapperInterface.libraryToLibraryDTO(this.libraryRepositoryInterface.save(library));
     }
 
     @Override
-    public Library editLibrary(Integer id, LibraryDTO libraryDTO) {
-        Library library = this.mapToEntity(libraryDTO, this.getLibrary(id));
+    public LibraryDTO editLibrary(Integer id, LibraryDTO libraryDTO) {
+        Library library = this.mapperInterface.libraryDTOToLibrary(libraryDTO);
         this.libraryRepositoryInterface.save(library);
 
-        return library;
-    }
-
-    private Library mapToEntity(LibraryDTO libraryDTO, Library library) {
-        if (libraryDTO.getName() != null) {
-            library.setName(libraryDTO.getName());
-        }
-
-        return library;
+        return this.mapperInterface.libraryToLibraryDTO(library);
     }
 }

@@ -1,8 +1,11 @@
 package edu.itakademy.demo.entity.dto;
 
+import java.util.Set;
+
 public class LibraryDTO {
     private Integer id;
     private String name;
+    private Set<BookDTO> books;
 
     public Integer getId() {
         return id;
@@ -18,5 +21,13 @@ public class LibraryDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<BookDTO> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<BookDTO> books) {
+        this.books = books;
     }
 }

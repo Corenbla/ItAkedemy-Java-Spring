@@ -3,6 +3,7 @@ package edu.itakademy.demo.entity.dto;
 public class BookDTO {
     private Integer id;
     private String name;
+    private LibraryDTO library;
 
     public Integer getId() {
         return id;
@@ -18,5 +19,13 @@ public class BookDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LibraryDTO getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(LibraryDTO library) {
+        this.library = library;
     }
 }

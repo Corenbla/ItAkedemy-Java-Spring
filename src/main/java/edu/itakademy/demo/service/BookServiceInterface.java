@@ -9,13 +9,15 @@ public interface BookServiceInterface {
 
     Book getBook(Integer id);
 
-    List<Book> getByName(String name);
+    BookDTO getBookDTO(Integer id);
 
-    List<Book> getAll();
+    List<BookDTO> getByName(String name);
+
+    List<BookDTO> getAll();
 
     void deleteBook(Integer id);
 
-    Book createBook(Book book);
+    BookDTO createBook(Book book);
 
-    Book editBook(Integer BookId, BookDTO book);
+    BookDTO editBook(Integer BookId, BookDTO book);
 }

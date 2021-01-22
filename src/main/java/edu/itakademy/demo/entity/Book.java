@@ -1,9 +1,8 @@
 package edu.itakademy.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 public class Book {
@@ -14,6 +13,10 @@ public class Book {
 
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Library library;
+
     public Book() {}
 
     @Override
@@ -21,6 +24,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", library=" + library +
                 '}';
     }
 
@@ -34,5 +38,13 @@ public class Book {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
     }
 }
